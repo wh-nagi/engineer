@@ -2,7 +2,7 @@
 
 [![Python 3.12-3.14](https://img.shields.io/badge/python-3.12--3.14-blue.svg)](https://www.python.org/downloads/)
 [![PyPI](https://img.shields.io/pypi/v/ml4t-engineer)](https://pypi.org/project/ml4t-engineer/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/ml4t/engineer/blob/main/LICENSE)
 
 Feature engineering, labeling, alternative bars, and leakage-safe datasets for
 financial ML.
@@ -56,15 +56,16 @@ ohlcv = pl.DataFrame(
     }
 )
 
-features = compute_features(ohlcv, ["rsi", "macd", "atr"])
+features = compute_features(ohlcv, ["rsi", "macd", "atr"], calendar=None)
 
 assert {"rsi", "macd", "atr"} <= set(features.columns)
 assert features.height == ohlcv.height
 ```
 
 `compute_features()` returns the input columns with the requested feature columns
-appended. Use the feature registry to inspect categories and parameters before building
-larger pipelines.
+appended. This example explicitly uses observation-row mode with `calendar=None`;
+periods count rows, not scheduled sessions or elapsed days. Use the feature registry
+to inspect categories and parameters before building larger pipelines.
 
 ## Supported Workflows
 
@@ -89,6 +90,9 @@ changes through [GitHub Issues](https://github.com/ml4t/engineer/issues).
 
 ## Development
 
+Read [CONTRIBUTING.md](https://github.com/ml4t/engineer/blob/main/CONTRIBUTING.md) before opening
+an issue or pull request.
+
 ```bash
 git clone https://github.com/ml4t/engineer.git
 cd engineer
@@ -98,6 +102,7 @@ uv run ruff format --check src/ tests/ examples/ scripts/
 uv run ty check
 uv run pytest tests/ -q
 uv build
+uv run python -c "import ml4t.engineer"
 uv run mkdocs build --strict
 ```
 
@@ -108,6 +113,7 @@ tests, and ecosystem qualification.
 ## Project Information
 
 - [Documentation](https://www.ml4trading.io/docs/engineer/)
+- [Contributing](https://github.com/ml4t/engineer/blob/main/CONTRIBUTING.md)
 - [Issue tracker](https://github.com/ml4t/engineer/issues)
 - [Releases and changelog](https://github.com/ml4t/engineer/releases)
-- [License](LICENSE)
+- [License](https://github.com/ml4t/engineer/blob/main/LICENSE)
